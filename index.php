@@ -13,6 +13,15 @@ echo $_SERVER['HTTP_USER_AGENT'];
 echo "<br>SCRIPT NAME: ";
 echo $_SERVER['SCRIPT_NAME'];
 */
+
+function ucfirst_utf8($stri){ 
+if($stri{0}>="\xc3") 
+     return (($stri{1}>="\xa0")? 
+     ($stri{0}.chr(ord($stri{1})-32)): 
+     ($stri{0}.$stri{1})).substr($stri,2); 
+else return ucfirst($stri); 
+} 
+
 include("idna/idna_convert.class.php");
 $IDN = new idna_convert();
 
@@ -22,18 +31,13 @@ $fullName = explode(".",$fullName);
 $decodedFullName = array();
 foreach ($fullName as $name) {
 	$decodedName = $IDN->decode($name);
-	array_push($decodedFullName,$name);
+	array_push($decodedFullName,$decodedName);
 }
 
 foreach ($decodedFullName as $name) {
-	$returnName .= ucfirst($name) . " ";
+	$returnName .= ucfirst_utf8($name) . " ";
 }
-
-$var = explode(".",$_SERVER['HTTP_HOST']);
-$input = $var[0];
-$output = $IDN->decode($input);
-$subdomain = ucfirst($output);
-
+$subdomain = $returnName;
 
 if (strtolower($subdomain) == "raymond" || strtolower($subdomain) == "weq") {
    $subdomain = "Du";
@@ -75,13 +79,6 @@ if ($person == true) {
 	echo "<h1>Ingen lyver akkurat n&aring;, tror jeg.</h1>";
 }
 ?> 
-
-<br />
-<?php
-echo $name;
-echo "<br />";
-echo $returnName;
-?>
  </body>
 
  </html>
