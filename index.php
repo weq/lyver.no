@@ -22,6 +22,9 @@ if($stri{0}>="\xc3")
 else return ucfirst($stri); 
 } 
 
+function check_exception($arr) {
+}
+
 include("idna/idna_convert.class.php");
 $IDN = new idna_convert();
 
@@ -37,7 +40,7 @@ foreach ($fullName as $name) {
 foreach ($decodedFullName as $name) {
 	$returnName .= ucfirst_utf8($name) . " ";
 }
-$subdomain = $returnName;
+$subdomain = rtrim($returnName, " ");
 
 if (strtolower($subdomain) == "raymond" || strtolower($subdomain) == "weq") {
    $subdomain = "Du";
