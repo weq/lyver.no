@@ -42,16 +42,13 @@ foreach ($decodedFullName as $name) {
 }
 $subdomain = rtrim($returnName, " ");
 
-if (strtolower($subdomain) == "raymond" || strtolower($subdomain) == "weq") {
-   $subdomain = "Du";
-   $person = true;
-} elseif (strtolower($subdomain) == "far") {
+if (strtolower($subdomain) == "raymond" || strtolower($subdomain) == "weq" || strtolower($subdomain) == "far" || strpos(strtolower($subdomain), "siring") !== false) {
    $subdomain = "Du";
    $person = true;
 } elseif (strtolower($subdomain) == "jeg") {
    $person = false;
    $sometimes = true;
-} elseif (strtolower($subdomain) == "www" || strtolower($subdomain) == "lyver") {
+} elseif (strtolower($subdomain) == "www" || strtolower($subdomain) == "lyver" || strtolower($subdomain) == "lyver no") {
    $person = false;
 } else {
    $person = true;
@@ -66,14 +63,19 @@ header('Content-Type: text/html; charset=utf-8');
 
  <html xmlns="http://www.w3.org/1999/xhtml">
  <head>
- <title><?php echo "{$subdomain} lyver!"; ?></title>
+ <title>
+ <?php 
+ if ($person == true) {
+    echo "{$subdomain} lyver!";
+ } else {
+    echo "Lyver.no";
+ }
+ ?>
+ </title>
  </head>
 
  <body>
 <?php
-include_once("analyticstracking.php");
-
-
 if ($person == true) {
 	echo "<h1>{$subdomain} lyver!</h1>";
 } elseif ($sometimes == true) {
@@ -81,6 +83,7 @@ if ($person == true) {
 } else {
 	echo "<h1>Ingen lyver akkurat n&aring;, tror jeg.</h1>";
 }
+include_once("analyticstracking.php");
 ?> 
  </body>
 
