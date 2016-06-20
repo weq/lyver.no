@@ -6,5 +6,6 @@ After some years I decided to take to the next level and I purchased lyver.no an
 
 It supports IDNA.
 It requires a wildcard DNS record.
+It uses the Simple-vhost module for lighttpd.
 
 I'm available for more information on Freenode, contact weq if anything.
